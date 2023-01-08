@@ -3,7 +3,7 @@ import { galleryItems } from './gallery-items.js';
 console.log(galleryItems);
 
 const galleryListElem = document.querySelector('.gallery');
-const galleryMarkup = createGalleryItemMarkup(galleryItems);
+const galleryMarkup = createGalleryMarkup(galleryItems);
 
 galleryListElem.innerHTML = galleryMarkup;
 
@@ -39,7 +39,7 @@ function showModal(modal) {
   }
 }
 
-function createGalleryItemMarkup(galleryItems) {
+function createGalleryMarkup(galleryItems) {
   const galleryMarkup = galleryItems
     .map(({ preview, original, description }) => {
       return `<div class="gallery__item">
