@@ -20,22 +20,36 @@ galleryListElem.addEventListener('click', event => {
 });
 
 function createModal(url) {
-  return basicLightbox.create(`
+  const modal = basicLightbox.create(
+    `
         <img src="${url}" width="800" height="600">
-    `);
+    `,
+    {
+      onShow: modal => {
+        document.addEventListener('keydown', onKeyPress);
+      },
+      onClose: modal => {
+        document.removeEventListener('keydown', onKeyPress);
+      },
+    }
+  );
+
+  function onKeyPress(event) {
+    onEscKeyPress(event, modal);
+  }
+
+  return modal;
 }
 
 function showModal(modal) {
   modal.show();
-  window.addEventListener('keydown', onEscKeyPress);
+}
 
-  function onEscKeyPress(event) {
-    const ESC_KEY_CODE = 'Escape';
+function onEscKeyPress(event, modal) {
+  const ESC_KEY_CODE = 'Escape';
 
-    if (event.code === ESC_KEY_CODE) {
-      modal.close();
-      window.removeEventListener('keydown', onEscKeyPress);
-    }
+  if (event.code === ESC_KEY_CODE) {
+    modal.close();
   }
 }
 
